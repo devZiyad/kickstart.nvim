@@ -822,10 +822,6 @@ require('lazy').setup({
     build = ':Cord update',
   },
   {
-    'fladson/vim-kitty',
-    ft = 'kitty',
-  },
-  {
     'mikesmithgh/kitty-scrollback.nvim',
     enabled = true,
     lazy = true,
