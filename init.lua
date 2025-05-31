@@ -735,32 +735,11 @@ require('lazy').setup({
     },
   },
 
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'catppuccin/nvim',
+  {
+    'folke/tokyonight.nvim',
+    lazy = false,
     priority = 1000, -- Make sure to load this before all the other start plugins.
-    config = function()
-      vim.cmd.colorscheme 'catppuccin-mocha'
-
-      custom_highlights = function(colors)
-        return {
-          Comment = { fg = colors.flamingo },
-          TabLineSel = { bg = colors.pink },
-          CmpBorder = { fg = colors.surface2 },
-          Pmenu = { bg = colors.none },
-        }
-      end
-
-      require('catppuccin').setup {
-        integrations = {
-          mason = true,
-          blink_cmp = true,
-        },
-      }
-    end,
+    opts = {},
   },
 
   -- Highlight todo, notes, etc in comments
@@ -832,6 +811,20 @@ require('lazy').setup({
   {
     'vyfor/cord.nvim',
     build = ':Cord update',
+  },
+  {
+    'fladson/vim-kitty',
+    ft = 'kitty',
+  },
+  {
+    'mikesmithgh/kitty-scrollback.nvim',
+    enabled = true,
+    lazy = true,
+    cmd = { 'KittyScrollbackGenerateKittens', 'KittyScrollbackCheckHealth', 'KittyScrollbackGenerateCommandLineEditing' },
+    event = { 'User KittyScrollbackLaunch' },
+    config = function()
+      require('kitty-scrollback').setup()
+    end,
   },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
