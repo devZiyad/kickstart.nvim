@@ -509,6 +509,7 @@ require('lazy').setup({
         clangd = {},
         gopls = {},
         pylsp = {},
+        racket_langserver = {},
       }
 
       for name, server in pairs(servers) do
@@ -586,6 +587,16 @@ require('lazy').setup({
     },
   },
 
+  {
+    'saghen/blink.compat',
+    -- use v2.* for blink.cmp v1.*
+    version = '2.*',
+    -- lazy.nvim will automatically load the plugin when it's required by blink.cmp
+    lazy = true,
+    -- make sure to set opts so that lazy.nvim calls blink.compat's setup
+    opts = {},
+  },
+
   { -- Autocompletion
     'saghen/blink.cmp',
     event = 'VimEnter',
@@ -615,6 +626,7 @@ require('lazy').setup({
         },
         opts = {},
       },
+      { 'PaterJason/cmp-conjure' },
     },
     --- @module 'blink.cmp'
     --- @type blink.cmp.Config
@@ -660,7 +672,14 @@ require('lazy').setup({
       },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets' },
+        default = { 'lsp', 'path', 'snippets', 'buffer', 'conjure' },
+        providers = {
+          conjure = {
+            name = 'conjure',
+            module = 'blink.compat.source',
+            opts = {},
+          },
+        },
       },
 
       snippets = { preset = 'luasnip' },
@@ -750,6 +769,14 @@ require('lazy').setup({
         callback = function() vim.treesitter.start() end,
       })
     end,
+  },
+
+  {
+    'Olical/conjure',
+    ft = { 'racket', 'scheme' },
+    lazy = true,
+    init = function() end,
+    dependencies = { 'wlangstroth/vim-racket' },
   },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
